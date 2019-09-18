@@ -7,6 +7,7 @@ namespace Calculator.Console
         static void Main(string[] args)
         {
             System.Console.WriteLine("Hello World!");
+            var name = System.Console.ReadLine();
         }
     }
 }
