@@ -9,10 +9,18 @@ pipeline {
                 } 
             }
         }
+        //dotnet publish -c Release -r win10-x64
         stage('Test'){
             steps{
                 script {
                     bat "dotnet test Calculator.Tests\\Calculator.Tests.csproj -v n"
+                } 
+            }
+        }
+        stage('Deploy'){
+            steps{
+                script {
+                    bat "dotnet publish -c Release -r win10-x64"
                 } 
             }
         }
