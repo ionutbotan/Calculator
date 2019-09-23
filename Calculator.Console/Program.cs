@@ -6,19 +6,21 @@ namespace Calculator.Console
     {
         static void Main(string[] args)
         {
-            int a = 0, b = 0;
-            int result = 0;
-            char operationChoice = '\0';
+            char operationChoice;
 
-            Menu(ref operationChoice);
+            do
+            {
+                ShowMenu();
+                operationChoice = GetOperation();
+            } while (operationChoice == '\0');
 
             switch (operationChoice)
             {
                 case '+':
                     {
-                        IntroduceOperands(ref a, ref b);
                         var calculator = new Engine.Calculator();
-                        result = calculator.Add(a, b);
+                        int result = calculator.Sum(IntroduceOperand('a'), IntroduceOperand('b'));
+                        ShowAsResult(result);
                         break;
                     }
                 default:
@@ -27,27 +29,32 @@ namespace Calculator.Console
                         break;
                     }
             }
+        }
 
+        private static void ShowAsResult(int result)
+        {
             System.Console.WriteLine("Result: " + result);
+
         }
 
-        private static void Menu(ref char operationChoice)
+        private static char GetOperation()
         {
-            do
-            {
-                System.Console.WriteLine("Plese select operation:");
-                System.Console.WriteLine("+ (Adding)");
-
-                char.TryParse(System.Console.ReadLine(), out operationChoice);
-            } while (operationChoice == '\0');
+            char tempChar;
+            char.TryParse(System.Console.ReadLine(), out tempChar);
+            return tempChar;
         }
 
-        private static void IntroduceOperands(ref int a, ref int b)
+        private static void ShowMenu()
         {
-            System.Console.WriteLine("Plese introduce operand a:");
-            int.TryParse(System.Console.ReadLine(), out a);
-            System.Console.WriteLine("Plese introduce operand b:");
-            int.TryParse(System.Console.ReadLine(), out b);
+            System.Console.WriteLine("Plese select operation:");
+            System.Console.WriteLine("+ (Adding)");
+        }
+
+        private static int IntroduceOperand(char operand)
+        {
+            System.Console.WriteLine("Plese introduce operand " + operand + ":");
+            int.TryParse(System.Console.ReadLine(), out int a);
+            return a;
         }
     }
 }

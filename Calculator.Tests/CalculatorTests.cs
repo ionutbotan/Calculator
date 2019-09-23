@@ -4,30 +4,51 @@ namespace Calculator.Tests
 {
     public class CalculatorTests
     {
+        Engine.Calculator calculator;
+
         [SetUp]
         public void Setup()
         {
-            
+            calculator = new Engine.Calculator();
         }
 
         [Test]
-        public void DoNothing()
+        public void AddingZeroWithZeroShouldReturnZero()
         {
-            Assert.Pass();
+            Assert.That(calculator.Sum(0, 0), Is.EqualTo(0));
         }
-        
+
+        [Test]
+        public void AddingMaxIntWithMaxIntShouldThrowException()
+        {
+            Assert.Throws<Engine.Calculator.ResultOutOfBound>(
+                () => calculator.Sum(int.MaxValue, int.MaxValue));
+        }
+
+        [Test]
+        public void AddingTwoNubersSumOfWhichExceedsMaxOrMinIntShouldThrowException()
+        {
+            Assert.Throws<Engine.Calculator.ResultOutOfBound>(
+                () => calculator.Sum(1500000000, 1500000000));
+        }
+
+        [Test]
+        public void AddingMinIntWithMinIntShouldThrowException()
+        {
+            Assert.Throws<Engine.Calculator.ResultOutOfBound>(
+                () => calculator.Sum(int.MinValue, int.MinValue));
+        }
+
         [Test]
         public void AddingOneAndOneShouldReturnTwo()
         {
-            var calculator = new Engine.Calculator();
-            Assert.That(calculator.Add(1, 1), Is.EqualTo(2));
+            Assert.That(calculator.Sum(1, 1), Is.EqualTo(2));
         }
 
         [Test]
         public void AddingMinusOneAndOneShouldReturnZero()
         {
-            var calculator = new Engine.Calculator();
-            Assert.That(calculator.Add(-1, 1), Is.EqualTo(0));
+            Assert.That(calculator.Sum(-1, 1), Is.EqualTo(0));
         }
     }
 }

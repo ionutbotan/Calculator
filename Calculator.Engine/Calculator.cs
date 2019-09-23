@@ -4,9 +4,15 @@ namespace Calculator.Engine
 {
     public class Calculator
     {
-        public int Add(int firstOperator, int secondOperator)
+        public int Sum(int firstOperand, int secondOperand)
         {
-            return firstOperator + secondOperator;
+            long result = (long)firstOperand + secondOperand;
+            if (result > int.MaxValue || result < int.MinValue)
+                throw new ResultOutOfBound();
+
+            return (int)result;
         }
+        public class ResultOutOfBound : Exception { };
     }
+
 }
