@@ -26,7 +26,7 @@ namespace Calculator.Tests
         }
 
         [Test]
-        public void AddingTwoNubersSumOfWhichExceedsMaxOrMinIntShouldThrowException()
+        public void AddingTwoNubersSumOfWhichExceedsMaxIntShouldThrowException()
         {
             Assert.Throws<Engine.Calculator.ResultOutOfBound>(
                 () => calculator.Sum(1500000000, 1500000000));
